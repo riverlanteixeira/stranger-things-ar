@@ -54,19 +54,41 @@ document.addEventListener('DOMContentLoaded', () => {
 
         dustinAudio.src = mission.introAudio;
 
-        // Resetar o listener para não ter múltiplos
-        const newDustinImage = dustinImage.cloneNode(true);
-        dustinImage.parentNode.replaceChild(newDustinImage, dustinImage);
-        
-        newDustinImage.addEventListener('click', () => {
-            dustinAudio.play();
-        }, { once: true });
+        // DENTRO DA FUNÇÃO startMission
 
-        dustinAudio.onended = () => {
-            callScreen.classList.remove('active');
-            arView.classList.add('active'); // Ativa a câmera
-            startNavigation();
-        };
+// Função para tocar o áudio e continuar
+function playAudioAndProceed() {
+    console.log("Tentando tocar o áudio...");
+    const playPromise = dustinAudio.play();
+
+    if (playPromise !== undefined) {
+        playPromise.then(_ => {
+            // A reprodução de áudio começou com sucesso!
+            console.log("Áudio iniciado!");
+        }).catch(error => {
+            // A reprodução falhou. Provavelmente bloqueada pelo navegador.
+            console.error("Erro ao tocar áudio:", error);
+            alert("Seu navegador bloqueou a reprodução. Por favor, clique novamente na imagem para tentar de novo.");
+            // Re-adiciona o listener para uma nova tentativa do usuário
+            dustinImage.addEventListener('click', playAudioAndProceed, { once: true });
+        });
+    }
+}
+
+// Resetar o listener para não ter múltiplos
+const newDustinImage = dustinImage.cloneNode(true);
+dustinImage.parentNode.replaceChild(newDustinImage, dustinImage);
+// Acessa a nova referência do elemento
+const finalDustinImage = document.getElementById('dustin-image');
+
+finalDustinImage.addEventListener('click', playAudioAndProceed, { once: true });
+
+dustinAudio.onended = () => {
+    console.log("Áudio finalizado. Navegando para a missão.");
+    callScreen.classList.remove('active');
+    arView.classList.add('active'); // Ativa a câmera
+    startNavigation();
+};
     }
 
     // --- NAVEGAÇÃO E BÚSSOLA ---
