@@ -18,8 +18,8 @@ document.addEventListener('DOMContentLoaded', () => {
         { // Missão 1
             lat: -27.631781070044788,
             lon: -48.67967086580981,
-            introAudio: 'assets/dustin-intro.wav',
-            completionAudio: 'assets/dustin-missao-1-completa.wav',
+            introAudio: 'assets/dustin-intro.mp3',
+            completionAudio: 'assets/dustin-missao-1-completa.mp3',
             objectModel: '#bike-model',
             isCollected: false
         },
