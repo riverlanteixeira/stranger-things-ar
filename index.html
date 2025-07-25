@@ -38,12 +38,7 @@
                 <a-asset-item id="taco-model" src="assets/taco.png"></a-asset-item>
             </a-assets>
 
-            <a-camera
-                id="camera"
-                gps-new-camera="gpsMinDistance: 5; initial-lat: -27.631781; initial-lon: -48.679670"
-                look-controls="enabled: false"
-                ar-controls="true"
-            ></a-camera>
+            <a-camera id="camera" gps-camera rotation-reader></a-camera>
 
             <a-entity cursor="fuse: false; rayOrigin: mouse;" raycaster="objects: .clickable"></a-entity>
 
