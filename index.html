@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Stranger Things: AR Mission</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
+    <script src="https://raw.githack.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
+</head>
+<body>
+
+    <div id="start-screen" class="screen active">
+        <img src="assets/stranger-things-logo.png" alt="Stranger Things Logo" class="logo">
+        <button id="start-button">Iniciar</button>
+    </div>
+
+    <div id="call-screen" class="screen">
+        <img id="dustin-image" src="assets/dustin-call.jpg" alt="Chamada de Dustin">
+        <p>Clique na imagem para ouvir</p>
+        <audio id="dustin-audio"></audio>
+    </div>
+
+    <div id="ar-view" class="screen">
+        <div id="compass-arrow">▲</div>
+
+        <a-scene
+            id="a-scene"
+            vr-mode-ui="enabled: false"
+            arjs="sourceType: webcam; videoTexture: true; debugUIEnabled: false;"
+            renderer="antialias: true; alpha: true"
+            events="ar-hit-test-start: start-ar"
+        >
+            <a-assets>
+                <a-asset-item id="bike-model" src="assets/bicicleta-will.glb"></a-asset-item>
+                <a-asset-item id="taco-model" src="assets/taco.png"></a-asset-item>
+            </a-assets>
+
+            <a-camera
+                id="camera"
+                gps-new-camera="gpsMinDistance: 5; initial-lat: -27.631781; initial-lon: -48.679670"
+                look-controls="enabled: false"
+                ar-controls="true"
+            ></a-camera>
+
+            <a-entity cursor="fuse: false; rayOrigin: mouse;" raycaster="objects: .clickable"></a-entity>
+
+        </a-scene>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
